@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 gxy love cpr 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1, #f06292);
+            background-size: 400% 400%;
+            animation: gradientMove 8s ease-in-out infinite;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            padding: 20px;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 60px 60px 60px 60px;
+            padding: 50px 40px 40px 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(233, 30, 99, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 飘浮的爱心粒子 */
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: floatUp 12s linear infinite;
+        }
+
+        .heart-float:nth-child(1) { left: 5%; animation-delay: 0s; font-size: 30px; }
+        .heart-float:nth-child(2) { left: 15%; animation-delay: 2s; font-size: 20px; }
+        .heart-float:nth-child(3) { left: 30%; animation-delay: 4s; font-size: 36px; }
+        .heart-float:nth-child(4) { left: 50%; animation-delay: 1s; font-size: 18px; }
+        .heart-float:nth-child(5) { left: 65%; animation-delay: 3.5s; font-size: 28px; }
+        .heart-float:nth-child(6) { left: 78%; animation-delay: 5s; font-size: 22px; }
+        .heart-float:nth-child(7) { left: 90%; animation-delay: 2.5s; font-size: 32px; }
+        .heart-float:nth-child(8) { left: 42%; animation-delay: 6s; font-size: 26px; }
+        .heart-float:nth-child(9) { left: 22%; animation-delay: 7s; font-size: 16px; }
+        .heart-float:nth-child(10) { left: 72%; animation-delay: 4.5s; font-size: 34px; }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100%) rotate(0deg) scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .big-heart {
+            font-size: 72px;
+            display: block;
+            margin-bottom: 10px;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.2); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            color: #880e4f;
+            text-shadow: 0 2px 20px rgba(233, 30, 99, 0.3);
+            letter-spacing: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title .heart-icon {
+            color: #e91e63;
+        }
+
+        .time-wrapper {
+            margin: 30px 0 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .time-label {
+            font-size: 16px;
+            color: #ad1457;
+            letter-spacing: 6px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        #clock {
+            font-size: 52px;
+            font-weight: bold;
+            color: #4a0a2a;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(233, 30, 99, 0.15);
+        }
+
+        #clock .seconds {
+            font-size: 36px;
+            color: #e91e63;
+        }
+
+        .sub-message {
+            font-size: 22px;
+            color: #6a1b3a;
+            margin-top: 18px;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .sub-message .sparkle {
+            display: inline-block;
+            animation: sparkle 1.8s ease-in-out infinite;
+        }
+
+        .sub-message .sparkle:nth-child(2) { animation-delay: 0.6s; }
+        .sub-message .sparkle:nth-child(3) { animation-delay: 1.2s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.3); }
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 14px;
+            color: rgba(136, 14, 79, 0.5);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px 25px 20px;
+                border-radius: 40px;
+            }
+            .title {
+                font-size: 28px;
+            }
+            .big-heart {
+                font-size: 50px;
+            }
+            #clock {
+                font-size: 36px;
+            }
+            #clock .seconds {
+                font-size: 26px;
+            }
+            .sub-message {
+                font-size: 18px;
+            }
+            .heart-float {
+                font-size: 18px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- 飘浮爱心背景 -->
+        <div class="hearts">
+            <span class="heart-float">💗</span>
+            <span class="heart-float">❤️</span>
+            <span class="heart-float">💖</span>
+            <span class="heart-float">💕</span>
+            <span class="heart-float">💗</span>
+            <span class="heart-float">❤️</span>
+            <span class="heart-float">💖</span>
+            <span class="heart-float">💕</span>
+            <span class="heart-float">💗</span>
+            <span class="heart-float">❤️</span>
+        </div>
+
+        <!-- 主内容 -->
+        <span class="big-heart">💖</span>
+
+        <div class="title">
+            <span class="heart-icon">💕</span> gxy love cpr <span class="heart-icon">💕</span>
+        </div>
+
+        <div class="time-wrapper">
+            <div class="time-label">✦ 此刻的心跳 ✦</div>
+            <div id="clock">
+                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds" class="seconds">00</span>
+            </div>
+        </div>
+
+        <div class="sub-message">
+            <span class="sparkle">✨</span>
+            每一秒都是我爱你
+            <span class="sparkle">✨</span>
+        </div>
+
+        <div class="footer-note">♥  forever & always  ♥</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('hours').textContent = h;
+            document.getElementById('minutes').textContent = m;
+            document.getElementById('seconds').textContent = s;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
