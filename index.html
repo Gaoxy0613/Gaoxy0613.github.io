@@ -89,9 +89,9 @@
         }
 
         .big-heart {
-            font-size: 72px;
+            font-size: 64px;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             animation: heartbeat 1.2s ease-in-out infinite;
         }
 
@@ -103,14 +103,43 @@
             70% { transform: scale(1); }
         }
 
-        .title {
+        /* ===== 新增：相爱天数 ===== */
+        .days-counter {
+            font-size: 28px;
+            color: #4a0a2a;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 60px;
+            display: inline-block;
+            margin-bottom: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .days-counter .number {
             font-size: 40px;
+            color: #e91e63;
+            font-family: 'Courier New', monospace;
+        }
+
+        .days-counter .label {
+            font-size: 18px;
+            color: #880e4f;
+        }
+
+        .title {
+            font-size: 34px;
             font-weight: bold;
             color: #880e4f;
             text-shadow: 0 2px 20px rgba(233, 30, 99, 0.3);
             letter-spacing: 4px;
             position: relative;
             z-index: 1;
+            margin-top: 4px;
         }
 
         .title .heart-icon {
@@ -118,8 +147,8 @@
         }
 
         .time-wrapper {
-            margin: 30px 0 20px 0;
-            padding: 20px;
+            margin: 24px 0 18px 0;
+            padding: 18px;
             background: rgba(255, 255, 255, 0.35);
             border-radius: 40px;
             backdrop-filter: blur(10px);
@@ -129,16 +158,16 @@
         }
 
         .time-label {
-            font-size: 16px;
+            font-size: 15px;
             color: #ad1457;
             letter-spacing: 6px;
             opacity: 0.8;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: bold;
         }
 
         #clock {
-            font-size: 52px;
+            font-size: 48px;
             font-weight: bold;
             color: #4a0a2a;
             font-family: 'Courier New', monospace;
@@ -147,14 +176,14 @@
         }
 
         #clock .seconds {
-            font-size: 36px;
+            font-size: 32px;
             color: #e91e63;
         }
 
         .sub-message {
-            font-size: 22px;
+            font-size: 20px;
             color: #6a1b3a;
-            margin-top: 18px;
+            margin-top: 14px;
             letter-spacing: 3px;
             position: relative;
             z-index: 1;
@@ -175,8 +204,8 @@
         }
 
         .footer-note {
-            margin-top: 25px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 13px;
             color: rgba(136, 14, 79, 0.5);
             letter-spacing: 2px;
             position: relative;
@@ -186,26 +215,33 @@
         /* 响应式 */
         @media (max-width: 480px) {
             .card {
-                padding: 30px 20px 25px 20px;
+                padding: 30px 18px 22px 18px;
                 border-radius: 40px;
             }
             .title {
-                font-size: 28px;
+                font-size: 24px;
             }
             .big-heart {
-                font-size: 50px;
+                font-size: 48px;
+            }
+            .days-counter {
+                font-size: 20px;
+                padding: 10px 18px;
+            }
+            .days-counter .number {
+                font-size: 30px;
             }
             #clock {
-                font-size: 36px;
+                font-size: 34px;
             }
             #clock .seconds {
-                font-size: 26px;
+                font-size: 24px;
             }
             .sub-message {
-                font-size: 18px;
+                font-size: 16px;
             }
             .heart-float {
-                font-size: 18px !important;
+                font-size: 16px !important;
             }
         }
     </style>
@@ -230,6 +266,11 @@
         <!-- 主内容 -->
         <span class="big-heart">💖</span>
 
+        <!-- ===== 新增：相爱天数显示 ===== -->
+        <div class="days-counter">
+            💕 <span class="number" id="daysCount">0</span> <span class="label">天</span> 💕
+        </div>
+
         <div class="title">
             <span class="heart-icon">💕</span> gxy love cpr <span class="heart-icon">💕</span>
         </div>
@@ -251,8 +292,13 @@
     </div>
 
     <script>
-        function updateClock() {
+        // ===== 相爱日期：2019年11月10日 =====
+        const loveStart = new Date(2019, 10, 10); // 注意：月份从0开始，10代表11月
+
+        function updateClockAndDays() {
             const now = new Date();
+
+            // ---- 更新时钟 ----
             const h = String(now.getHours()).padStart(2, '0');
             const m = String(now.getMinutes()).padStart(2, '0');
             const s = String(now.getSeconds()).padStart(2, '0');
@@ -260,10 +306,15 @@
             document.getElementById('hours').textContent = h;
             document.getElementById('minutes').textContent = m;
             document.getElementById('seconds').textContent = s;
+
+            // ---- 更新相爱天数 ----
+            const diffMs = now - loveStart; // 相差的毫秒数
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24)); // 换算成天数
+            document.getElementById('daysCount').textContent = diffDays;
         }
 
-        updateClock();
-        setInterval(updateClock, 1000);
+        updateClockAndDays();
+        setInterval(updateClockAndDays, 1000);
     </script>
 
 </body>
